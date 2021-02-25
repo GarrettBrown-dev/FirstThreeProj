@@ -23,7 +23,7 @@
       0.1, //Near Plane
       1000 //Far Plane
     )
-    camera.position.z = 5; //camera's position on Z axis.
+    camera.position.z = 5; //camera's position on Z axis. The lower the number, the closer it gets.
 
     var renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setClearColor('#e5e5e5'); //light gray coloring.
@@ -39,7 +39,7 @@
     }) // allows resizing when window is resized.
 
 
-    var geometry = new THREE.SphereGeometry(1, 10, 10); // radius, width, height.
+    var geometry = new THREE.BoxGeometry(1, 1, 1); // radius, width, height. The higher the number, the higher the vertice count.
     var material = new THREE.MeshLambertMaterial({ color: 0xFFCC00 }); //What it's made of.
     var mesh = new THREE.Mesh(geometry, material); //combines object and material.
 
