@@ -38,6 +38,8 @@
       camera.updateProjectionMatrix();
     }) // allows resizing when window is resized.
 
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
 
     var geometry = new THREE.BoxGeometry(1, 1, 1); // radius, width, height. The higher the number, the higher the vertice count.
     var material = new THREE.MeshLambertMaterial({ color: 0xFFCC00 }); //What it's made of.
@@ -66,6 +68,21 @@
     }
     //sets renderer on renderer, which renders the scene. Also prevents distortion of aspect ratio.
 
+    function onMouseMove(event) {
+      event.preventDefault();
+
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+
+      var intersects = raycaster.intersectObjects(scene.children, true);
+      for (var i = 0; i < intersects.length; i++) {
+        intersects[i].object.material.color.set(0xff0000)
+      }
+    }
+    //returns an array based on objects that have intersected where mouse is at.
+
     render();
 
     this.tl = new TimelineMax({ paused: true });
@@ -74,9 +91,7 @@
     this.tl.to(this.mesh.position, .5, { x: 2, ease: Expo.easeOut })
     this.tl.to(this.mesh.rotation, .5, { y: Math.PI * .5, ease: Expo.easeOut }, "=-1.5")
 
-    document.body.addEventListener('click', () => {
-      this.tl.play();
-    })
+    window.addEventListener('mousemove', onMouseMove);
 
   </script>
 </body>
