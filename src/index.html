@@ -43,7 +43,9 @@
     var material = new THREE.MeshLambertMaterial({ color: 0xFFCC00 }); //What it's made of.
     var mesh = new THREE.Mesh(geometry, material); //combines object and material.
 
-    mesh.position.x = 2;
+    // mesh.position.set(2, 2, -2); Moves object.
+    // mesh.rotation.set(45, 0, 0); //rotation...
+    // mesh.scale.set(1, 2, 1); //scale...
 
     scene.add(mesh);
     //adds created object to scene.
@@ -53,12 +55,24 @@
     scene.add(light);
 
     var render = function () {
-      requestAnimationFrame(render);
+      requestAnimationFrame(render); //generally better than setInterval. Saves processing power by pausing when not on page.
+
+      //mesh.rotation.x += 0.05; //adds .01 for each time render is called, usually 60 fps. up these for faster rotations.
+      //mesh.rotation.y += 0.01;
+
+      //mesh.scale.x -= 0.01; //make stuff bigger or smaller... Does eventually get too big for the screen.
+
       renderer.render(scene, camera);
     }
     //sets renderer on renderer, which renders the scene. Also prevents distortion of aspect ratio.
 
     render();
+
+    this.tl = new TimelineMax().delay(.3); //delay helps make animation smoother.
+    this.tl.to(this.mesh.scale, 1, { x: 2, ease: Expo.easeOut }) // sets a timeline for animation, scales by duration of 1, by x axis of 2, exponentially.
+    this.tl.to(this.mesh.scale, .5, { x: .5, ease: Expo.easeOut })
+    this.tl.to(this.mesh.position, .5, { x: 2, ease: Expo.easeOut })
+    this.tl.to(this.mesh.rotation, .5, { y: Math.PI * .5, ease: Expo.easeOut }, "=-1.5")
 
   </script>
 </body>
