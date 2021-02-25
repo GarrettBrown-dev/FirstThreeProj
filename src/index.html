@@ -12,6 +12,25 @@
 <body>
   <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+  <script>
+
+    var scene = new THREE.Scene();
+
+    var camera = new THREE.PerspectiveCamera(
+      75, //FOV
+      window.innerWidth / window.innerHeight,
+      0.1, //Near Plane
+      1000 //Far Plane
+    )
+
+    var renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setClearColor('#e5e5e5');
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    document.body.appendChild(renderer.domElement);
+
+  </script>
 </body>
 
 </html>
