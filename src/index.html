@@ -46,6 +46,10 @@
     scene.add(mesh);
     //adds created object to scene.
 
+    var light = new THREE.PointLight(0xFFFFFF, 1, 500) //color, intensity, distance
+    light.position.set(10, 0, 25); //x,y,z coords.
+    scene.add(light);
+
     renderer.render(scene, camera);
     //sets renderer on renderer, which renders the scene.
 
